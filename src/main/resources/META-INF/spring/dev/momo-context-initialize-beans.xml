@@ -19,15 +19,27 @@
 
         <!-- Roles -->
         <ref bean="adminRole"/>
+        <ref bean="subAdminRole"/>
+        <ref bean="editorRole"/>
         <ref bean="userRole"/>
 
         <!-- Users -->
         <ref bean="adminUser"/>
         <ref bean="defaultUser"/>
+        <ref bean="archangaiSubAdmin"/>
+        <ref bean="bajanchongorSubAdmin"/>
+        <ref bean="bulganSubAdmin"/>
+        <ref bean="mantaJuergensohnEditor"/>
+        <ref bean="juppSchmitzEditor"/>
+        <ref bean="testUser"/>
 
         <!-- UserGroups -->
         <ref bean="adminUserGroup"/>
         <ref bean="defaultUserGroup"/>
+
+        <ref bean="archangaiGroup"/>
+        <ref bean="bajanchongorGroup"/>
+        <ref bean="bulganGroup"/>
 
         <!-- Layouts -->
         <ref bean="borderLayout"/>
@@ -333,6 +345,14 @@
         <property name="name" value="${role.superAdminRoleName}"/>
         <property name="description" value="Administrator Role"/>
     </bean>
+    <bean id="subAdminRole" class="de.terrestris.shogun2.model.Role">
+        <property name="name" value="${role.subAdminRoleName}"/>
+        <property name="description" value="SubAdmin Role"/>
+    </bean>
+     <bean id="editorRole" class="de.terrestris.shogun2.model.Role">
+        <property name="name" value="${role.editorRoleName}"/>
+        <property name="description" value="Editor Role"/>
+    </bean>
     <bean id="userRole" class="de.terrestris.shogun2.model.Role">
         <property name="name" value="${role.defaultUserRoleName}"/>
         <property name="description" value="User Role"/>
@@ -365,6 +385,85 @@
             </util:set>
         </property>
     </bean>
+    <bean id="archangaiSubAdmin" class="de.terrestris.shogun2.model.User">
+        <property name="firstName" value="Archangai"/>
+        <property name="lastName" value="Subadmuin"/>
+        <property name="accountName" value="subadmin1"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="subAdminRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="bajanchongorSubAdmin" class="de.terrestris.shogun2.model.User">
+        <property name="firstName" value="Bajanchongor"/>
+        <property name="lastName" value="Subadmin"/>
+        <property name="accountName" value="subadmin2"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="subAdminRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="bulganSubAdmin" class="de.terrestris.shogun2.model.User">
+       <property name="firstName" value="Bulgan"/>
+        <property name="lastName" value="Subadmin"/>
+        <property name="accountName" value="subadmin3"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="subAdminRole"/>
+            </util:set>
+        </property>
+    </bean>
+
+    <bean id="mantaJuergensohnEditor" class="de.terrestris.shogun2.model.User">
+        <property name="firstName" value="Manta"/>
+        <property name="lastName" value="Jürgensohn"/>
+        <property name="accountName" value="mjuergen"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="editorRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="juppSchmitzEditor" class="de.terrestris.shogun2.model.User">
+        <property name="firstName" value="Jupp"/>
+        <property name="lastName" value="Schmitz"/>
+        <property name="accountName" value="jschmitz"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="editorRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="testUser" class="de.terrestris.shogun2.model.User">
+        <property name="firstName" value="TestUser"/>
+        <property name="lastName" value="TestUser"/>
+        <property name="accountName" value="testuser"/>
+        <!-- This will be encrypted when the init service saves the user. -->
+        <property name="password" value="shogun2"/>
+        <property name="active" value="true"/>
+        <property name="roles">
+            <util:set id="defaultUserRoles">
+                <ref bean="userRole"/>
+            </util:set>
+        </property>
+    </bean>
 
     <!-- Define userGroups -->
     <bean id="adminUserGroup" class="de.terrestris.momo.model.MomoUserGroup">
@@ -378,6 +477,51 @@
         <property name="roles">
             <util:set id="adminUserGroupRoles">
                 <ref bean="adminRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="archangaiGroup" class="de.terrestris.momo.model.MomoUserGroup">
+        <property name="name" value="Archangai Group"/>
+        <property name="owner" ref="archangaiSubAdmin"/>
+        <property name="members">
+            <util:set id="adminUserGroupMembers">
+                <ref bean="archangaiSubAdmin"/>
+                <ref bean="mantaJuergensohnEditor"/>
+                <ref bean="testUser"/>
+            </util:set>
+        </property>
+        <property name="roles">
+            <util:set id="adminUserGroupRoles">
+                <ref bean="userRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="bajanchongorGroup" class="de.terrestris.momo.model.MomoUserGroup">
+        <property name="name" value="Bajanchongor Group"/>
+        <property name="owner" ref="bajanchongorSubAdmin"/>
+        <property name="members">
+            <util:set id="adminUserGroupMembers">
+                <ref bean="bajanchongorSubAdmin"/>
+            </util:set>
+        </property>
+        <property name="roles">
+            <util:set id="adminUserGroupRoles">
+                <ref bean="userRole"/>
+            </util:set>
+        </property>
+    </bean>
+    <bean id="bulganGroup" class="de.terrestris.momo.model.MomoUserGroup">
+        <property name="name" value="Bulgan Group"/>
+        <property name="owner" ref="bulganSubAdmin"/>
+        <property name="members">
+            <util:set id="adminUserGroupMembers">
+                <ref bean="bulganSubAdmin"/>
+                <ref bean="mantaJuergensohnEditor"/>
+            </util:set>
+        </property>
+        <property name="roles">
+            <util:set id="adminUserGroupRoles">
+                <ref bean="userRole"/>
             </util:set>
         </property>
     </bean>
